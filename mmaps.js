@@ -1,17 +1,31 @@
 var films = [
   ["de", "Die Patronin", "http://lars.ingebrigtsen.no/foo/de"],
-  ["ru", "Mirror", "http://lars.ingebrigtsen.no/foo/ru", "1976", "Andrei Tarkovski"],
-  ["se", "Sångar från andre våningen", "http://lars.ingebrigtsen.no/foo/se"]
+  ["fi", "Mirror", "http://lars.ingebrigtsen.no/foo/ru", "1976", "Andrei Tarkovski"],
+  ["se", "Sångar från andre våningen", "http://lars.ingebrigtsen.no/foo/se"],
+  ["ru", "Mirror", "http://lars.ingebrigtsen.no/foo/ru", "1976", "Andrei Tarkovski"]
 ];
 
 function drawRegionsMap() {
   var table = [['Country', 'Newness']];
   var points = 700;
+  var step = 200;
+  var match = window.location.href.match("country=([a-z]+)");
+  if (match)
+    var start = match[1];
+  var found = false;
 
+  if (! start)
+    found = true;
+  
   $.map(films, function(film) {
+    if (film[0] == start)
+      found = true;
+    if (! found)
+      return;
     table.push([film[0], points]);
     if (points > 300)
-      points -= 10;
+      points -= step;
+    step = 50;
   });
 
   var data = google.visualization.arrayToDataTable(table);
@@ -19,7 +33,7 @@ function drawRegionsMap() {
   var options = {
     backgroundColor: "#000000",
     datalessRegionColor: "#000000",
-    colorAxis: {colors: ['#505050', '#00ff00']},
+    colorAxis: {minValue: 300, colors: ['#505050', '#00ff00']},
     tooltip: { trigger: "none" },
     legend: "none"
   };
