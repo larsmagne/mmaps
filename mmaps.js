@@ -51,7 +51,7 @@ function displayFilm(film) {
   $(".event-lightbox").remove();
   var html = "<a href=\"" + film[2] + "\">" + film[1] +
 	" (" + film[3] + ") by "
-	+ film[4] + "</a>";
+	+ film[4] + "</a><p>" + film[5];
   var box = document.createElement("div");
   box.style.position = "absolute";
   box.style.left = $(window).width() / 2 - 150 + "px";
