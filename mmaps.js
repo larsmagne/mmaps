@@ -24,7 +24,7 @@ function drawRegionsMap() {
   var data = google.visualization.arrayToDataTable(table);
 
   var options = {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#000000",
     datalessRegionColor: "#000000",
     colorAxis: {minValue: 300, colors: ['#505050', '#00ff00']},
     tooltip: { trigger: "none" },
