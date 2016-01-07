@@ -48,6 +48,7 @@ function initMap() {
 }
 
 function displayFilm(film) {
+  $(".event-lightbox").remove();
   var html = "<a href=\"" + film[2] + "\">" + film[1] +
 	" (" + film[3] + ") by "
 	+ film[4] + "</a>";
