@@ -1,10 +1,3 @@
-var films = [
-  ["de", "Die Patronin", "http://lars.ingebrigtsen.no/foo/de"],
-  ["fi", "Mirror", "http://lars.ingebrigtsen.no/foo/ru", "1976", "Andrei Tarkovski"],
-  ["se", "Sångar från andre våningen", "http://lars.ingebrigtsen.no/foo/se"],
-  ["ru", "Mirror", "http://lars.ingebrigtsen.no/foo/ru", "1976", "Andrei Tarkovski"]
-];
-
 function drawRegionsMap() {
   var table = [['Country', 'Newness']];
   var points = 700;
@@ -31,7 +24,7 @@ function drawRegionsMap() {
   var data = google.visualization.arrayToDataTable(table);
 
   var options = {
-    backgroundColor: "#000000",
+    backgroundColor: "#ffffff",
     datalessRegionColor: "#000000",
     colorAxis: {minValue: 300, colors: ['#505050', '#00ff00']},
     tooltip: { trigger: "none" },
