@@ -44,6 +44,11 @@ function drawRegionsMap() {
   // Remove the zebra stripes in India.
   setTimeout(function() {
       $("#_ABSTRACT_RENDERER_ID_0").remove();
+      $("path").each(function(index) {
+	  // Erase the borders between the countries.
+	  if (this.getAttribute("fill") == "#002000")
+	      this.setAttribute("stroke", "#002000");
+      });
   }, 100);
 }
 
