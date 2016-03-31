@@ -26,7 +26,7 @@ function drawRegionsMap() {
   var options = {
     backgroundColor: "#000000",
     datalessRegionColor: "#000000",
-    colorAxis: {minValue: 300, colors: ['#505050', '#00ff00']},
+    colorAxis: {minValue: 300, colors: ['#002000', '#00ff00']},
     tooltip: { trigger: "none" },
     legend: "none"
   };
@@ -40,6 +40,11 @@ function drawRegionsMap() {
       return;
     displayFilm(films[selected.row]);
   });
+
+  // Remove the zebra stripes in India.
+  setTimeout(function() {
+      $("#_ABSTRACT_RENDERER_ID_0").remove();
+  }, 100);
 }
 
 function initMap() {
