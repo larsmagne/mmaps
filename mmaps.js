@@ -33,6 +33,17 @@ function drawRegionsMap() {
 
   var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
+  google.visualization.events.addListener(chart, 'ready', function selectHandler() {
+    $("path").each(function(index) {
+      // Erase the borders between the countries.
+      if (this.getAttribute("fill") == "#002000")
+	this.setAttribute("stroke", "#002000");
+    });
+    // Remove the crosshatching in India.
+    for (var i = 0; i < 10; i++)
+      $("#_ABSTRACT_RENDERER_ID_" + i).remove();
+  });
+
   chart.draw(data, options);
   google.visualization.events.addListener(chart, 'select', function selectHandler() {
     var selected = chart.getSelection()[0];
@@ -40,20 +51,6 @@ function drawRegionsMap() {
       return;
     displayFilm(films[selected.row]);
   });
-
-  // Remove the zebra stripes in India.
-  setTimeout(function() {
-      $("path").each(function(index) {
-	  // Erase the borders between the countries.
-	  if (this.getAttribute("fill") == "#002000")
-	      this.setAttribute("stroke", "#002000");
-      });
-  }, 100);
-  setTimeout(function() {
-    $("#_ABSTRACT_RENDERER_ID_0").remove();
-    $("#_ABSTRACT_RENDERER_ID_1").remove();
-    $("#_ABSTRACT_RENDERER_ID_2").remove();
-  }, 200);
 }
 
 function initMap() {
