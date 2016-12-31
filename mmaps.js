@@ -62,13 +62,13 @@ function displayFilm(film) {
   $(".event-lightbox").remove();
   var html = "<a href=\"" + film[2] + "\">" + film[1] +
 	" (" + film[3] + ") by "
-	+ film[4] + "</a><p>" + film[5];
+	+ film[4] + "</a><br><span>" + film[5] + "</span>";
   var box = document.createElement("div");
   box.style.position = "absolute";
   box.style.left = $("body").width() / 2 - 150 + "px";
   box.style.top = $("body").height() / 2 - 200 + "px";
   box.className = "event-lightbox";
-  box.innerHTML = html;
+  box.innerHTML = "<div>" + html + "</div>";
   document.body.appendChild(box);
   $(".close").bind("click", function() {
     $(box).remove();
