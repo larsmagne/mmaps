@@ -62,7 +62,8 @@ function drawRegionsMap() {
     var selected = chart.getSelection()[0];
     if (! selected)
       return;
-    displayFilm(films[selected.row]);
+    var film = films[selected.row];
+    window.location = film[2];
   });
 }
 
