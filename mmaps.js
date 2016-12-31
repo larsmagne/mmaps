@@ -27,14 +27,14 @@ function drawRegionsMap() {
     backgroundColor: "#000000",
     datalessRegionColor: "#000000",
     colorAxis: {minValue: 300, colors: ['#002000', '#00ff00']},
-    tooltip: { trigger: "none" },
+    tooltip: { trigger: "focus", isHtml: true },
     legend: "none"
   };
 
   var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
   google.visualization.events.addListener(chart, 'ready', function selectHandler() {
-    $("path").each(function(index) {
+    $("path").each(function() {
       // Erase the borders between the countries.
       if (this.getAttribute("fill") == "#002000")
 	this.setAttribute("stroke", "#002000");
@@ -42,6 +42,19 @@ function drawRegionsMap() {
     // Remove the crosshatching in India.
     for (var i = 0; i < 10; i++)
       $("#_ABSTRACT_RENDERER_ID_" + i).remove();
+    $("path").each(function() {
+      $(this).hover(function() {
+	$(".google-visualization-tooltip").find("span").first().each(function() {
+	  var html = this.innerHTML;
+	  if (html.length == 2) {
+	    $.map(films, function(film) {
+	      if (film[0] == html)
+		displayFilm(film);
+	    });
+	  }
+	});
+      });
+    });
   });
 
   chart.draw(data, options);
