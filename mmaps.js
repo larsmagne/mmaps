@@ -65,15 +65,10 @@ function displayFilm(film) {
 	+ film[4] + "</a><p>" + film[5];
   var box = document.createElement("div");
   box.style.position = "absolute";
-  box.style.left = $(window).width() / 2 - 150 + "px";
-  box.style.top = $(window).height() / 2 - 25 + "px";
-  box.style.height = "50px";
-  box.style.width = "300px";
-  box.style.display = "block";
-  box.style.background = "#f0f0f0";
-  box.style.color = "black";
+  box.style.left = $("body").width() / 2 - 150 + "px";
+  box.style.top = $("body").height() / 2 - 200 + "px";
   box.className = "event-lightbox";
-  box.innerHTML = html + "<div class='close'><span>Close</span></div>";
+  box.innerHTML = html;
   document.body.appendChild(box);
   $(".close").bind("click", function() {
     $(box).remove();
