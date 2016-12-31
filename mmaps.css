@@ -52,3 +52,7 @@ div#inner {
 .google-visualization-tooltip {
   visibility: hidden;  
 }
+
+path {
+  cursor: pointer;
+}
