@@ -127,7 +127,7 @@ function displayImage(url, index) {
   div.className = "circular";
   div.appendChild(image);
   div.style.position = "absolute";
-  div.style.zIindex = "" + index;
+  div.style.zIndex = "" + index;
   div.style.display = "none";
   div.style.left = "80px";
   div.style.top = "350px";
