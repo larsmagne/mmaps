@@ -55,7 +55,6 @@ function drawRegionsMap() {
 	});
       });
     });
-    setInterval(animateImage, 100);
   });
 
   chart.draw(data, options);
@@ -120,6 +119,8 @@ function displayFilm(film) {
 }
 
 var animatedImages = [];
+var moveLeftG = true;
+var moveDownG = true;
 
 function displayImage(url, index) {
   var images = imageCache[url];
@@ -137,58 +138,35 @@ function displayImage(url, index) {
   div.style.left = "80px";
   div.style.top = "350px";
   image.onload = function() {
-    $(div).fadeIn(300);
-    animatedImages[index] = image;
+    $(div).fadeIn(300, function() {
+      if (index == imageIndex) {
+	$(".circular").each(function() {
+	  if (div != this)
+	    $(this).remove();
+	});
+      }
+    });
+    animateImage(image, moveLeftG, moveDownG);
   };
   $("#inner").append(div);
 }
 
-var moveLeft = true;
-var moveDown = true;
-
-function animateImage() {
-  for (var i = animatedImages.length - 1; i >= 0; i--) {
-    var image = animatedImages[i];
-    if (image.style.marginLeft)
-      break;
-    else
-      image = false;
-  }
-  if (! image)
-    return;
-  var left = parseInt(image.style.marginLeft.replace(/px/, ""));
-  var top = parseInt(image.style.marginTop.replace(/px/, ""));
+function animateImage(image, moveLeft, moveDown) {
   var width = image.width;
   var height = image.height;
-  console.log([top, left, width, height]);
 
+  moveLeftG = moveLeft;
   if (moveLeft) {
-    left += 1;
-    if (left >= 0)
-      moveLeft = false;
+    $(image).animate({marginLeft: "0px"},
+		     2000, false, function() {
+		       animateImage(image, !moveLeft, moveDown);
+		     });
   } else {
-    left -= 1;
-    if (Math.abs(left) >= width / 2)
-      moveLeft = true; 
+    var left = width / -2;
+    $(image).animate({marginLeft: left +"px"},
+		     2000, false, function() {
+		       animateImage(image, !moveLeft, moveDown);
+		     });
   }
 
-  /*
-  if (moveDown) {
-    top -= 1;
-    if (height + top - 150 <= 0) {
-      moveDown = true;
-      top = 0;
-    }
-  } else {
-    top += 1; 
-    if (top + 150 > height) {
-      moveDown = false;
-      top = height - 150;
-    }
-  }
-   */
-
-  $(image).animate({marginLeft: left + "px",
-		    marginTop: top + "px"},
-		   10);
 }

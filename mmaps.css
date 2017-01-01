@@ -74,6 +74,5 @@ div.event-lightbox img {
 }
 .circular img {
   width: auto;
-  height: 100%;
-  margin-left: -50px;
+  height: 140%;
 }
