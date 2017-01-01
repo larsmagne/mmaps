@@ -72,9 +72,13 @@ function initMap() {
   google.charts.setOnLoadCallback(drawRegionsMap);
 }
 
+var imageCache = [];
+var imageIndex = 0;
+
 function displayFilm(film) {
+  var url = film[2];
   $(".event-lightbox").remove();
-  var html = "<a href=\"" + film[2] + "\">" + film[1] +
+  var html = "<a href=\"" + url + "\">" + film[1] +
 	" (" + film[3] + ") by "
 	+ film[4] + "</a><br><span>" + film[5] + "</span>";
   var box = document.createElement("div");
@@ -87,4 +91,49 @@ function displayFilm(film) {
   $(".close").bind("click", function() {
     $(box).remove();
   });
+
+  var index = imageIndex++;
+  
+  if (imageCache[url])
+    displayImage(url, index);
+  else {
+    imageCache[url] = [];
+    $.ajax({
+      url: url.replace(/^http:/, "https:"),
+      crossOrigin: true,
+      dataType: "html",
+      success: function(result) {
+	result = result.replace(/\n/g, "");
+	var images = [];
+	do {
+	  var match = result.match("^.+?src=\"(https://larsmagne23.files.wordpress.com[^\"]*shot[^\"]*)\"");
+	  if (match) {
+	    images.push(match[1]);
+	    result = result.substring(match[0].length);
+	  }
+	} while (match);
+	imageCache[url] = images;
+	displayImage(url, index);
+      }
+    });
+  }
+}
+
+function displayImage(url, index) {
+  var images = imageCache[url];
+  var src = images[Math.floor(Math.random()*images.length)];
+  var image = document.createElement("img");
+  image.src = src;
+  var div = document.createElement("span");
+  div.className = "circular";
+  div.appendChild(image);
+  div.style.position = "absolute";
+  div.style.zIindex = "" + index;
+  div.style.display = "none";
+  div.style.left = $("body").width() / 2 - 350 + "px";
+  div.style.top = $("body").height() / 2 + 100 + "px";
+  image.onload = function() {
+    $(div).fadeIn(300);
+  };
+  document.body.appendChild(div);
 }

@@ -56,3 +56,21 @@ div#inner {
 path {
   cursor: pointer;
 }
+
+div.event-lightbox img {
+  height: 200px;
+  border-radius: 50%;
+}
+
+.circular {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.circular img {
+  width: auto;
+  height: 100%;
+  margin-left: -50px;
+}
