@@ -91,7 +91,7 @@ function displayFilm(film) {
     $(box).remove();
   });
 
-  var index = imageIndex++;
+  var index = ++imageIndex;
   
   if (imageCache[url])
     displayImage(url, index);
