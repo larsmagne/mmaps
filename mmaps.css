@@ -5,6 +5,7 @@ html, body {
   padding: 0;
 }
 div.event-lightbox {
+  position: absolute;
   color: white;
   text-align: center;
   background: #202020;

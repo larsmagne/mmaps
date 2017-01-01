@@ -82,12 +82,11 @@ function displayFilm(film) {
 	" (" + film[3] + ") by "
 	+ film[4] + "</a><br><span>" + film[5] + "</span>";
   var box = document.createElement("div");
-  box.style.position = "absolute";
-  box.style.left = $("body").width() / 2 - 150 + "px";
-  box.style.top = $("body").height() / 2 - 200 + "px";
+  box.style.left = "280px";
+  box.style.top = "80px";
   box.className = "event-lightbox";
   box.innerHTML = "<div>" + html + "</div>";
-  document.body.appendChild(box);
+  $("#inner").append(box);
   $(".close").bind("click", function() {
     $(box).remove();
   });
@@ -130,10 +129,10 @@ function displayImage(url, index) {
   div.style.position = "absolute";
   div.style.zIindex = "" + index;
   div.style.display = "none";
-  div.style.left = $("body").width() / 2 - 350 + "px";
-  div.style.top = $("body").height() / 2 + 100 + "px";
+  div.style.left = "80px";
+  div.style.top = "350px";
   image.onload = function() {
     $(div).fadeIn(300);
   };
-  document.body.appendChild(div);
+  $("#inner").append(div);
 }
