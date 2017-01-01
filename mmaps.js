@@ -55,6 +55,7 @@ function drawRegionsMap() {
 	});
       });
     });
+    setInterval(animateImage, 100);
   });
 
   chart.draw(data, options);
@@ -118,12 +119,16 @@ function displayFilm(film) {
   }
 }
 
+var animatedImages = [];
+
 function displayImage(url, index) {
   var images = imageCache[url];
   var src = images[Math.floor(Math.random()*images.length)];
   var image = document.createElement("img");
   image.src = src;
   var div = document.createElement("span");
+  image.style.marginTop = "-30px";
+  image.style.marginLeft = "-80px";
   div.className = "circular";
   div.appendChild(image);
   div.style.position = "absolute";
@@ -133,6 +138,57 @@ function displayImage(url, index) {
   div.style.top = "350px";
   image.onload = function() {
     $(div).fadeIn(300);
+    animatedImages[index] = image;
   };
   $("#inner").append(div);
+}
+
+var moveLeft = true;
+var moveDown = true;
+
+function animateImage() {
+  for (var i = animatedImages.length - 1; i >= 0; i--) {
+    var image = animatedImages[i];
+    if (image.style.marginLeft)
+      break;
+    else
+      image = false;
+  }
+  if (! image)
+    return;
+  var left = parseInt(image.style.marginLeft.replace(/px/, ""));
+  var top = parseInt(image.style.marginTop.replace(/px/, ""));
+  var width = image.width;
+  var height = image.height;
+  console.log([top, left, width, height]);
+
+  if (moveLeft) {
+    left += 1;
+    if (left >= 0)
+      moveLeft = false;
+  } else {
+    left -= 1;
+    if (Math.abs(left) >= width / 2)
+      moveLeft = true; 
+  }
+
+  /*
+  if (moveDown) {
+    top -= 1;
+    if (height + top - 150 <= 0) {
+      moveDown = true;
+      top = 0;
+    }
+  } else {
+    top += 1; 
+    if (top + 150 > height) {
+      moveDown = false;
+      top = height - 150;
+    }
+  }
+   */
+
+  $(image).animate({marginLeft: left + "px",
+		    marginTop: top + "px"},
+		   10);
 }
