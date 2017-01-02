@@ -127,16 +127,19 @@ function displayImage(url, index) {
   var image = document.createElement("img");
   image.src = src;
   var div = document.createElement("span");
-  image.style.marginTop = "-30px";
-  image.style.marginLeft = "-80px";
   div.className = "circular";
-  div.appendChild(image);
   div.style.position = "absolute";
   div.style.zIndex = "" + index;
   div.style.display = "none";
   div.style.left = "80px";
   div.style.top = "350px";
+  div.appendChild(image);
   image.onload = function() {
+    image.style.marginTop = "-30px";
+    if (! moveLeftG)
+      image.style.marginLeft = "0px";
+    else
+      image.style.marginLeft = "-120px";
     $(div).fadeIn(500, function() {
       if (index == imageIndex) {
 	$(".circular").each(function() {
@@ -144,8 +147,8 @@ function displayImage(url, index) {
 	    $(this).remove();
 	});
       }
+      animateImage(image, moveLeftG, index, url);
     });
-    animateImage(image, moveLeftG, index, url);
   };
   $("#inner").append(div);
 }
@@ -158,17 +161,19 @@ function animateImage(image, moveLeft, index, url) {
   if (moveLeft) {
     $(image).animate({marginLeft: "0px"},
 		     4000, false, function() {
-		       animateImage(image, !moveLeft, index, url);
-		       if (index == imageIndex)
+		       if (index == imageIndex) {
+			 moveLeftG = !moveLeftG;
 			 displayImage(url, ++imageIndex);
+		       }
 		     });
   } else {
     var left = width / -2;
     $(image).animate({marginLeft: left +"px"},
 		     4000, false, function() {
-		       animateImage(image, !moveLeft, index, url);
-		       if (index == imageIndex)
+		       if (index == imageIndex) {
+			 moveLeftG = !moveLeftG;
 			 displayImage(url, ++imageIndex);
+		       }
 		     });
   }
 
