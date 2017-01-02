@@ -120,7 +120,6 @@ function displayFilm(film) {
 
 var animatedImages = [];
 var moveLeftG = true;
-var moveDownG = true;
 
 function displayImage(url, index) {
   var images = imageCache[url];
@@ -138,7 +137,7 @@ function displayImage(url, index) {
   div.style.left = "80px";
   div.style.top = "350px";
   image.onload = function() {
-    $(div).fadeIn(300, function() {
+    $(div).fadeIn(500, function() {
       if (index == imageIndex) {
 	$(".circular").each(function() {
 	  if (div != this)
@@ -146,12 +145,12 @@ function displayImage(url, index) {
 	});
       }
     });
-    animateImage(image, moveLeftG, moveDownG);
+    animateImage(image, moveLeftG, index, url);
   };
   $("#inner").append(div);
 }
 
-function animateImage(image, moveLeft, moveDown) {
+function animateImage(image, moveLeft, index, url) {
   var width = image.width;
   var height = image.height;
 
@@ -159,13 +158,17 @@ function animateImage(image, moveLeft, moveDown) {
   if (moveLeft) {
     $(image).animate({marginLeft: "0px"},
 		     2000, false, function() {
-		       animateImage(image, !moveLeft, moveDown);
+		       animateImage(image, !moveLeft, index, url);
+		       if (index == imageIndex)
+			 displayImage(url, ++imageIndex);
 		     });
   } else {
     var left = width / -2;
     $(image).animate({marginLeft: left +"px"},
 		     2000, false, function() {
-		       animateImage(image, !moveLeft, moveDown);
+		       animateImage(image, !moveLeft, index, url);
+		       if (index == imageIndex)
+			 displayImage(url, ++imageIndex);
 		     });
   }
 
