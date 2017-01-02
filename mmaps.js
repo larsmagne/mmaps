@@ -157,7 +157,7 @@ function animateImage(image, moveLeft, index, url) {
   moveLeftG = moveLeft;
   if (moveLeft) {
     $(image).animate({marginLeft: "0px"},
-		     2000, false, function() {
+		     4000, false, function() {
 		       animateImage(image, !moveLeft, index, url);
 		       if (index == imageIndex)
 			 displayImage(url, ++imageIndex);
@@ -165,7 +165,7 @@ function animateImage(image, moveLeft, index, url) {
   } else {
     var left = width / -2;
     $(image).animate({marginLeft: left +"px"},
-		     2000, false, function() {
+		     4000, false, function() {
 		       animateImage(image, !moveLeft, index, url);
 		       if (index == imageIndex)
 			 displayImage(url, ++imageIndex);
