@@ -76,3 +76,9 @@ div.event-lightbox img {
   width: auto;
   height: 140%;
 }
+
+path:hover {
+  fill: #b00000;
+  stroke: black;
+  transition: fill 0.5s linear;
+}
