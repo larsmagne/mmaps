@@ -119,62 +119,66 @@ function displayFilm(film) {
 }
 
 var animatedImages = [];
-var moveLeftG = true;
+var currentUrl = false;
 
 function displayImage(url, index) {
+  currentUrl = url;
   var images = imageCache[url];
-  var src = images[Math.floor(Math.random()*images.length)];
   var image = document.createElement("img");
-  image.src = src;
-  var div = document.createElement("span");
-  div.className = "circular";
-  div.style.position = "absolute";
-  div.style.zIndex = "" + index;
-  div.style.display = "none";
-  div.style.left = "80px";
-  div.style.top = "350px";
-  div.appendChild(image);
+  image.src = images[Math.floor(Math.random()*images.length)];
+  var imgcont = $("span.circular")[0];
+  if (! imgcont) {
+    imgcont = document.createElement("span");
+    $("#inner").append(imgcont);
+    imgcont.className = "circular";
+    imgcont.style.position = "absolute";
+    imgcont.style.left = "80px";
+    imgcont.style.top = "350px";
+    var wrap = document.createElement("span");
+    imgcont.appendChild(wrap);
+    wrap.style.marginTop = "0px";
+    wrap.style.marginLeft = "0px";
+    animateImage(wrap, true);
+  } else {
+    wrap = $(imgcont).find("span")[0];
+  }
+  wrap.appendChild(image);
+  image.style.zIndex = "" + index;
+  image.style.display = "none";
   image.onload = function() {
-    image.style.marginTop = "-30px";
-    if (! moveLeftG)
-      image.style.marginLeft = "0px";
-    else
-      image.style.marginLeft = "-120px";
-    $(div).fadeIn(500, function() {
+    $(image).fadeIn(500, function() {
       if (index == imageIndex) {
 	$(".circular").each(function() {
-	  if (div != this)
+	  if (imgcont != this)
 	    $(this).remove();
 	});
       }
-      animateImage(image, moveLeftG, index, url);
     });
   };
-  $("#inner").append(div);
 }
 
-function animateImage(image, moveLeft, index, url) {
-  var width = image.width;
-  var height = image.height;
+function animateImage(wrap, left) {
+  if (left)
+    var target = "-400px";
+  else
+    target = "0px";
 
-  moveLeftG = moveLeft;
-  if (moveLeft) {
-    $(image).animate({marginLeft: "0px"},
-		     4000, false, function() {
-		       if (index == imageIndex) {
-			 moveLeftG = !moveLeftG;
-			 displayImage(url, ++imageIndex);
-		       }
-		     });
-  } else {
-    var left = width / -2;
-    $(image).animate({marginLeft: left +"px"},
-		     4000, false, function() {
-		       if (index == imageIndex) {
-			 moveLeftG = !moveLeftG;
-			 displayImage(url, ++imageIndex);
-		       }
-		     });
-  }
-
+  $(wrap).animate({marginLeft: target},
+		  4000, false, function() {
+		    animateImage(wrap, !left);
+		    var images = imageCache[currentUrl];
+		    var image = document.createElement("img");
+		    image.src = images[Math.floor(Math.random()*images.length)];
+		    image.style.zIndex = "" + ++imageIndex;
+		    image.style.display = "none";
+		    image.onload = function() {
+		      $(image).fadeIn(500, function() {
+			$("img").each(function() {
+			  if (this != image)
+			    $(this).remove();
+			});
+		      });
+		    };
+		    wrap.appendChild(image);
+		  });
 }

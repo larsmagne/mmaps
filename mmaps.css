@@ -72,10 +72,21 @@ div.event-lightbox img {
   border: 3px solid black;
   background-clip: padding-box;
 }
+.circular span {
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  position: relative;
+}
 .circular img {
   width: auto;
   height: 140%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin-top: -25px;
 }
+
 
 path:hover {
   fill: #b00000;
