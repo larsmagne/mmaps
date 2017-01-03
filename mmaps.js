@@ -77,6 +77,7 @@ var imageIndex = 0;
 
 function displayFilm(film) {
   var url = film[2];
+  currentUrl = url;
   $(".event-lightbox").remove();
   var html = "<a href=\"" + url + "\">" + film[1] +
 	" (" + film[3] + ") by "
@@ -122,7 +123,6 @@ var animatedImages = [];
 var currentUrl = false;
 
 function displayImage(url, index) {
-  currentUrl = url;
   var images = imageCache[url];
   var image = document.createElement("img");
   image.src = images[Math.floor(Math.random()*images.length)];
