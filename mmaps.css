@@ -80,11 +80,11 @@ div.event-lightbox img {
 }
 .circular img {
   width: auto;
-  height: 140%;
+  height: 204px;
+  margin-top: -27px;
   position: absolute;
   top: 0px;
   left: 0px;
-  margin-top: -25px;
 }
 
 
