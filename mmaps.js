@@ -6,9 +6,13 @@ function drawRegionsMap() {
   if (match)
     var start = match[1];
   var found = false;
+  var axis = {minValue: 300, colors: ['#002000', '#00ff00']};
 
-  if (! start)
+  if (! start) {
     found = true;
+    points = 300;
+    axis = {minValue: 300, colors: ['#002000', '#002000']};
+  }
   
   $.map(films, function(film) {
     if (film[0] == start)
@@ -26,7 +30,7 @@ function drawRegionsMap() {
   var options = {
     backgroundColor: "#000000",
     datalessRegionColor: "#000000",
-    colorAxis: {minValue: 300, colors: ['#002000', '#00ff00']},
+    colorAxis: axis,
     tooltip: { trigger: "focus", isHtml: true },
     legend: "none"
   };
