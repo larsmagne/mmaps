@@ -1,29 +1,43 @@
 function drawRegionsMap() {
-  var table = [['Country', 'Newness']];
-  var points = 700;
-  var step = 200;
-  var match = window.location.href.match("country=([a-z]+)");
-  if (match)
-    var start = match[1];
-  var found = false;
-  var axis = {minValue: 300, colors: ['#002000', '#00ff00']};
-
-  if (! start) {
-    found = true;
-    points = 300;
-    axis = {minValue: 300, colors: ['#002000', '#002000']};
-  }
-  
-  $.map(films, function(film) {
-    if (film[0] == start)
+  var ratingType = window.location.href.match("rating=([a-zA-Z]+)");
+  if (ratingType) {
+    ratingType = ratingType[1];
+    var table = [['Country', ratingType + ' Rating']];
+    if (ratingType == "Film")
+      var axis = {minValue: 300, colors: ['#500000', '#c00000']};
+    else
+      axis = {minValue: 300, colors: ['#000080', '#0000e0']};
+    $.map(films, function(film) {
+      var index = ratingType == "Film"? 6: 7;
+      table.push([film[0], film[index] * 100]);
+    });
+  } else {
+    table = [['Country', 'Newness']];
+    var points = 700;
+    var step = 200;
+    var match = window.location.href.match("country=([a-z]+)");
+    if (match)
+      var start = match[1];
+    var found = false;
+    axis = {minValue: 300, colors: ['#002000', '#00ff00']};
+    
+    if (! start) {
       found = true;
-    if (! found)
-      return;
-    table.push([film[0], points]);
-    if (points > 300)
-      points -= step;
-    step = 50;
-  });
+      points = 300;
+      axis = {minValue: 300, colors: ['#002000', '#002000']};
+    }
+    
+    $.map(films, function(film) {
+      if (film[0] == start)
+	found = true;
+      if (! found)
+	return;
+      table.push([film[0], points]);
+      if (points > 300)
+	points -= step;
+      step = 50;
+    });
+  }
 
   var data = google.visualization.arrayToDataTable(table);
 
