@@ -9,7 +9,7 @@ function drawRegionsMap() {
       axis = {minValue: 300, colors: ['#000080', '#0000e0']};
     $.map(films, function(film) {
       var index = ratingType == "Film"? 6: 7;
-      table.push([film[0], film[index] * 100]);
+      table.push([film[0], film[index] * 75 + 300]);
     });
   } else {
     table = [['Country', 'Newness']];
