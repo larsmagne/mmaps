@@ -4,7 +4,7 @@ function drawRegionsMap() {
     ratingType = ratingType[1];
     var table = [['Country', ratingType + ' Rating']];
     if (ratingType == "Film")
-      var axis = {minValue: 300, colors: ['#500000', '#c00000']};
+      var axis = {minValue: 300, colors: ['#300000', '#d00000']};
     else
       axis = {minValue: 300, colors: ['#000080', '#0000e0']};
     $.map(films, function(film) {
