@@ -24,7 +24,7 @@ function drawRegionsMap() {
     if (! start) {
       found = true;
       points = 300;
-      axis = {minValue: 300, colors: ['#002000', '#002000']};
+      axis = {minValue: 300, colors: ['#004000', '#004000']};
     }
     
     $.map(films, function(film) {
@@ -73,20 +73,25 @@ function drawRegionsMap() {
 	});
       });
     });
+
+    google.visualization.events.addListener(
+      chart, 'select',
+      function selectHandler(e) {
+	console.log(e);
+	var selected = chart.getSelection()[0];
+	if (! selected)
+	  return;
+	var film = films[selected.row];
+	window.location = film[2];
+      });
+
   });
 
   chart.draw(data, options);
-  google.visualization.events.addListener(chart, 'select', function selectHandler() {
-    var selected = chart.getSelection()[0];
-    if (! selected)
-      return;
-    var film = films[selected.row];
-    window.location = film[2];
-  });
 }
 
 function initMap() {
-  google.charts.load('current', {'packages':['geochart']});
+  google.charts.load('45', {'packages':['geochart']});
   google.charts.setOnLoadCallback(drawRegionsMap);
 }
 
