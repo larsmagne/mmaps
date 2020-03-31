@@ -129,10 +129,10 @@ function displayFilm(film) {
 	result = result.replace(/\n/g, "");
 	var images = [];
 	do {
-	  var match = result.match("^.+?src=\"(https://lars.ingebrigtsen.no[^\"]*shot[^\"]*)\"");
+	  var match = result.match("src=\"(https://lars.ingebrigtsen.no[^\"]*shot[^\"]*)\"");
 	  if (match) {
 	    images.push(match[1]);
-	    result = result.substring(match[0].length);
+	    result = result.substring(match.index + match[0].length);
 	  }
 	} while (match);
 	imageCache[url] = images;
