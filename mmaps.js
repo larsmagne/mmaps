@@ -129,7 +129,7 @@ function displayFilm(film) {
 	result = result.replace(/\n/g, "");
 	var images = [];
 	do {
-	  var match = result.match("^.+?src=\"(https://larsmagne23.files.wordpress.com[^\"]*shot[^\"]*)\"");
+	  var match = result.match("^.+?src=\"(https://lars.ingebrigtsen.no[^\"]*shot[^\"]*)\"");
 	  if (match) {
 	    images.push(match[1]);
 	    result = result.substring(match[0].length);
